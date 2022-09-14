@@ -1,0 +1,90 @@
+#include <iostream>
+#include <stdio.h>
+#include <clocale>
+#include <iomanip>
+#include <queue>
+ 
+using namespace std;
+
+class Queue
+{
+    struct q
+    {
+        int info;
+        q *next;
+    };
+    q *m_end;
+    q *m_start;
+    
+public:
+    Queue(){
+        m_start = m_end = NULL;
+    }
+    
+void qin(int x) // добавление
+    {
+    if (m_start == NULL)
+    {
+        q *temp = new q;
+        temp->info = x;
+        m_start = temp;
+        m_end = m_start;
+        return;
+    }
+    else // когда что-то есть
+    {
+        q *temp = new q;
+        temp->info = x;
+        m_end->next = temp;
+        m_end = temp;
+        m_end->next = NULL;
+        return;
+    }
+    }
+int qout() // вытаскивать
+    {
+    if (m_start == NULL)
+    {
+        m_end = m_start;
+        return 0;
+}
+    
+    int x = m_start->info;
+    q *temp = m_start;
+    m_start = m_start->next;
+    delete temp;
+    return x;
+    }
+    
+void getview(q* &qu){ // просмотр
+    if (qu == NULL){
+        cout << endl;
+        return;
+    }
+    cout << qu->info << " ";
+    getview(qu->next);
+}
+void view(){
+    cout << "Элементы данной очереди: ";
+    getview(m_start); 
+}
+};
+int main(){
+    Queue q1;
+    int c = 50;
+    vector<int> nums{2,6,32,53,90,76,11,24,16,25};
+    for (auto x : nums){
+    if (x < c){
+        q1.qin(x);;
+}
+
+}
+    q1.view();
+    for (auto x : nums){
+        if ( x >= c){
+            q1.qin(x);
+        }
+}
+    q1.view();
+    return 0;
+}
